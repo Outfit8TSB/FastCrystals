@@ -1,15 +1,20 @@
 package club.aurorapvp.fastcrystals.listeners.packet;
 
-import club.aurorapvp.fastcrystals.player.CrystalPlayer;
 import club.aurorapvp.fastcrystals.FastCrystals;
+import club.aurorapvp.fastcrystals.player.CrystalPlayer;
 import com.github.retrooper.packetevents.event.PacketListener;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
+import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType.Play.Client;
 import com.github.retrooper.packetevents.protocol.player.InteractionHand;
+import com.github.retrooper.packetevents.util.Vector3d;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientInteractEntity;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientInteractEntity.InteractAction;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSpawnEntity;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import org.bukkit.FluidCollisionMode;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -82,6 +87,18 @@ public class InteractPacketListener implements PacketListener {
       return;
     }
 
+    // TODO figure this out
+    /*
+    if (!FastCrystals.containsCrystal(crystal.getLocation())) {
+      WrapperPlayServerSpawnEntity spawnCrystal = new WrapperPlayServerSpawnEntity(
+          FastCrystals.getLastEntityId() + 1, Optional.of(UUID.randomUUID()), EntityTypes.END_CRYSTAL,
+          new Vector3d(crystal.getX(), crystal.getY(), crystal.getZ()), crystal.getPitch(),
+          crystal.getYaw(), crystal.getYaw(), 0, Optional.of(new Vector3d()));
+
+      event.getUser().sendPacket(spawnCrystal);
+    }
+     */
+
     new BukkitRunnable() {
       @Override
       public void run() {
@@ -102,7 +119,8 @@ public class InteractPacketListener implements PacketListener {
 
           crystal.setShowingBottom(false);
 
-          if (player.getGameMode() != GameMode.CREATIVE && player.getGameMode() != GameMode.SPECTATOR) {
+          if (player.getGameMode() != GameMode.CREATIVE
+              && player.getGameMode() != GameMode.SPECTATOR) {
             item.setAmount(item.getAmount() - 1);
           }
         }
