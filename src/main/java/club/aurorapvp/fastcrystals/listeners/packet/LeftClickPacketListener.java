@@ -1,8 +1,8 @@
 package club.aurorapvp.fastcrystals.listeners.packet;
 
-import club.aurorapvp.fastcrystals.player.CrystalPlayer;
 import club.aurorapvp.fastcrystals.FastCrystals;
 import club.aurorapvp.fastcrystals.enums.AnimationType;
+import club.aurorapvp.fastcrystals.player.CrystalPlayer;
 import com.github.retrooper.packetevents.event.PacketListener;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType.Play.Client;
@@ -81,6 +81,10 @@ public class LeftClickPacketListener implements PacketListener {
               result.getHitPosition())) {
             return;
           }
+
+          if (player.getLastAnimation() == AnimationType.OTHER) {
+            return;
+          }
         }
       }
 
@@ -93,6 +97,8 @@ public class LeftClickPacketListener implements PacketListener {
         @Override
         public void run() {
           player.attack(crystal);
+
+          crystal.getWorld().createExplosion(crystal, 6.0f);
         }
       }.runTask(FastCrystals.getInstance());
     });
