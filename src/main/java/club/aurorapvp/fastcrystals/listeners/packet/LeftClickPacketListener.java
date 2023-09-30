@@ -81,10 +81,6 @@ public class LeftClickPacketListener implements PacketListener {
               result.getHitPosition())) {
             return;
           }
-
-          if (player.getLastAnimation() != AnimationType.START_DIGGING && player.getLastAnimation() != AnimationType.ATTACK) {
-            return;
-          }
         }
       }
 
