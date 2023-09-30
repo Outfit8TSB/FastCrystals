@@ -22,12 +22,6 @@ public class AnimationPacketListener implements PacketListener {
       return;
     }
 
-    if (event.getPacketType() == Client.PLAYER_BLOCK_PLACEMENT
-        || event.getPacketType() == Client.USE_ITEM) {
-      player.setLastAnimation(AnimationType.IGNORE);
-      return;
-    }
-
     if (event.getPacketType() == Client.INTERACT_ENTITY) {
       WrapperPlayClientInteractEntity wrapper = new WrapperPlayClientInteractEntity(event);
 
@@ -39,6 +33,7 @@ public class AnimationPacketListener implements PacketListener {
     }
 
     if (event.getPacketType() != Client.PLAYER_DIGGING) {
+      player.setLastAnimation(AnimationType.IGNORE);
       return;
     }
 
