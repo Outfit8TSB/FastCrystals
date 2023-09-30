@@ -88,10 +88,10 @@ public class LeftClickPacketListener implements PacketListener {
         }
       }
 
-      WrapperPlayServerDestroyEntities packet = new WrapperPlayServerDestroyEntities(
+      WrapperPlayServerDestroyEntities crystalDestroy = new WrapperPlayServerDestroyEntities(
           crystal.getEntityId());
 
-      event.getUser().sendPacket(packet);
+      event.getUser().sendPacket(crystalDestroy);
 
       new BukkitRunnable() {
         @Override

@@ -33,7 +33,7 @@ public class AnimationPacketListener implements PacketListener {
     }
 
     if (event.getPacketType() != Client.PLAYER_DIGGING) {
-      player.setLastAnimation(AnimationType.IGNORE);
+      player.setLastAnimation(AnimationType.OTHER);
       return;
     }
 
