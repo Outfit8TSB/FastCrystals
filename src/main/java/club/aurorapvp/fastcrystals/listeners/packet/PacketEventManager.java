@@ -11,8 +11,8 @@ public class PacketEventManager {
     PacketEvents.getAPI().getSettings().bStats(true).checkForUpdates(false).debug(false);
     PacketEvents.getAPI().load();
 
-    PacketEvents.getAPI().getEventManager().registerListener(new AnimationPacketListener(), PacketListenerPriority.LOWEST);
-    PacketEvents.getAPI().getEventManager().registerListener(new InteractPacketListener(), PacketListenerPriority.LOWEST);
     PacketEvents.getAPI().getEventManager().registerListener(new LeftClickPacketListener(), PacketListenerPriority.LOWEST);
+    PacketEvents.getAPI().getEventManager().registerListener(new InteractPacketListener(), PacketListenerPriority.LOWEST);
+    PacketEvents.getAPI().getEventManager().registerListener(new AnimationPacketListener(), PacketListenerPriority.LOWEST);
   }
 }
