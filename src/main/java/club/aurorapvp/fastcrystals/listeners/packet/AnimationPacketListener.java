@@ -76,20 +76,22 @@ public class AnimationPacketListener implements PacketListener {
         return;
       }
 
-      RayTraceResult traceBlocks = player.getPlayer().rayTraceBlocks(
-          player.getGameMode() == GameMode.CREATIVE ? 5.0 : 4.5);
+      if (!crystal.getBoundingBox().contains(eyeLoc.toVector())) {
+        RayTraceResult traceBlocks = player.getPlayer().rayTraceBlocks(
+            player.getGameMode() == GameMode.CREATIVE ? 5.0 : 4.5);
 
-      if (traceBlocks != null) {
-        Block block = traceBlocks.getHitBlock();
-        Vector eyeLocV = eyeLoc.toVector();
-        if (block != null) {
-          if (eyeLocV.distanceSquared(traceBlocks.getHitPosition()) <= eyeLocV.distanceSquared(
-              result.getHitPosition())) {
-            return;
-          }
+        if (traceBlocks != null) {
+          Block block = traceBlocks.getHitBlock();
+          Vector eyeLocV = eyeLoc.toVector();
+          if (block != null) {
+            if (eyeLocV.distanceSquared(traceBlocks.getHitPosition()) <= eyeLocV.distanceSquared(
+                result.getHitPosition())) {
+              return;
+            }
 
-          if (player.getLastAnimation() == AnimationType.OTHER) {
-            return;
+            if (player.getLastAnimation() == AnimationType.OTHER) {
+              return;
+            }
           }
         }
       }
