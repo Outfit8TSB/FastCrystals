@@ -49,7 +49,7 @@ public final class FastCrystals extends JavaPlugin {
     CRYSTAL_IDS.add(entityId);
   }
 
-  public static void unegisterId(int entityId) {
+  public static void unregisterId(int entityId) {
     CRYSTAL_IDS.remove(entityId);
   }
 
