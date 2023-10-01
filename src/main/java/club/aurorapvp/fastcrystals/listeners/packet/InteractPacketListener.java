@@ -100,6 +100,8 @@ public class InteractPacketListener implements PacketListener {
           crystal.getYaw(), crystal.getYaw(), 0, Optional.of(new Vector3d()));
 
       event.getUser().sendPacket(spawnCrystal);
+
+      FastCrystals.registerId(packetEntityId);
     }
 
     new BukkitRunnable() {
@@ -127,6 +129,8 @@ public class InteractPacketListener implements PacketListener {
                 crystal.getEntityId());
 
             event.getUser().sendPacket(crystalDestroy);
+
+            FastCrystals.unegisterId(packetEntityId);
           }
 
           if (player.getGameMode() != GameMode.CREATIVE) {

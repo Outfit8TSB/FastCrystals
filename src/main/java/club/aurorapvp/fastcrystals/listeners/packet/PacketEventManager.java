@@ -15,5 +15,6 @@ public class PacketEventManager {
     PacketEvents.getAPI().getEventManager().registerListener(new InteractPacketListener(), PacketListenerPriority.LOWEST);
     PacketEvents.getAPI().getEventManager().registerListener(new AnimationPacketListener(), PacketListenerPriority.LOWEST);
     PacketEvents.getAPI().getEventManager().registerListener(new EntityAttackListener(), PacketListenerPriority.LOWEST);
+    PacketEvents.getAPI().getEventManager().registerListener(new EntityPacketListener(), PacketListenerPriority.LOWEST);
   }
 }
