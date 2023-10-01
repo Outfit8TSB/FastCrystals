@@ -22,16 +22,6 @@ public class LeftClickPacketListener implements PacketListener {
       return;
     }
 
-    if (event.getPacketType() == Client.INTERACT_ENTITY) {
-      WrapperPlayClientInteractEntity wrapper = new WrapperPlayClientInteractEntity(event);
-
-      if (wrapper.getAction() == WrapperPlayClientInteractEntity.InteractAction.ATTACK) {
-        player.setLastAnimation(AnimationType.ATTACK);
-      }
-
-      return;
-    }
-
     if (event.getPacketType() != Client.PLAYER_DIGGING) {
       player.setLastAnimation(AnimationType.OTHER);
       return;

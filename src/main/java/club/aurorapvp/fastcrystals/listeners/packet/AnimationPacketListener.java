@@ -103,8 +103,6 @@ public class AnimationPacketListener implements PacketListener {
         @Override
         public void run() {
           player.attack(crystal);
-
-          crystal.getWorld().createExplosion(crystal, 6.0f);
         }
       }.runTask(FastCrystals.getInstance());
     });
