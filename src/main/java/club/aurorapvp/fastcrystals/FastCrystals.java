@@ -12,7 +12,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class FastCrystals extends JavaPlugin {
 
   private static FastCrystals INSTANCE;
-  private static final Set<Integer> CRYSTAL_IDS = ConcurrentHashMap.newKeySet();
   private static final Map<Integer, EnderCrystal> CRYSTALS = new ConcurrentHashMap<>();
   private static final Set<Location> CRYSTAL_LOCATIONS = ConcurrentHashMap.newKeySet();
   private static int lastEntityId;
@@ -45,26 +44,12 @@ public final class FastCrystals extends JavaPlugin {
     return CRYSTALS.get(entityId);
   }
 
-  public static void registerId(int entityId) {
-    CRYSTAL_IDS.add(entityId);
-  }
-
-  public static void unregisterId(int entityId) {
-    CRYSTAL_IDS.remove(entityId);
-  }
-
   public static void addCrystal(int entityId, EnderCrystal crystal) {
-    CRYSTAL_IDS.add(entityId);
     CRYSTALS.put(entityId, crystal);
     CRYSTAL_LOCATIONS.add(crystal.getLocation());
   }
 
   public static void removeCrystal(int entityId) {
-    CRYSTAL_IDS.remove(entityId);
     CRYSTAL_LOCATIONS.remove(CRYSTALS.remove(entityId).getLocation());
-  }
-
-  public static boolean isAlive(int entityId) {
-    return CRYSTAL_IDS.contains(entityId);
   }
 }

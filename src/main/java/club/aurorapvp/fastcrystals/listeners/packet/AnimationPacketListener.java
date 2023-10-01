@@ -101,8 +101,6 @@ public class AnimationPacketListener implements PacketListener {
 
       event.getUser().sendPacket(crystalDestroy);
 
-      FastCrystals.unegisterId(crystal.getEntityId());
-
       new BukkitRunnable() {
         @Override
         public void run() {
