@@ -2,16 +2,14 @@ package club.aurorapvp.fastcrystals;
 
 import club.aurorapvp.fastcrystals.listeners.bukkit.BukkitEventManager;
 import club.aurorapvp.fastcrystals.listeners.packet.PacketEventManager;
-import com.github.retrooper.packetevents.event.PacketListener;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import org.bukkit.Location;
 import org.bukkit.entity.EnderCrystal;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class FastCrystals extends JavaPlugin implements PacketListener, Listener {
+public final class FastCrystals extends JavaPlugin {
 
   private static FastCrystals INSTANCE;
   private static final Map<Integer, EnderCrystal> CRYSTAL_IDS = new ConcurrentHashMap<>();
@@ -48,10 +46,10 @@ public final class FastCrystals extends JavaPlugin implements PacketListener, Li
 
   public static void addCrystal(int entityId, EnderCrystal crystal) {
     CRYSTAL_IDS.put(entityId, crystal);
-    //CRYSTAL_LOCATIONS.add(crystal.getLocation());
+    CRYSTAL_LOCATIONS.add(crystal.getLocation());
   }
 
   public static void removeCrystal(int entityId) {
-    //CRYSTAL_LOCATIONS.remove(CRYSTAL_IDS.remove(entityId).getLocation());
+    CRYSTAL_LOCATIONS.remove(CRYSTAL_IDS.remove(entityId).getLocation());
   }
 }
