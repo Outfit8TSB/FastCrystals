@@ -29,7 +29,7 @@ public class EntityEventListener implements Listener {
   @EventHandler
       (priority = EventPriority.MONITOR)
   public void onEntitySpawn(EntitySpawnEvent event) {
-    //FastCrystals.setLastEntityId(event.getEntity().getEntityId());
+    FastCrystals.setLastEntityId(event.getEntity().getEntityId());
 
     if (event.getEntityType() != EntityType.ENDER_CRYSTAL) {
       return;

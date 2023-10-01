@@ -10,6 +10,7 @@ import com.github.retrooper.packetevents.protocol.player.InteractionHand;
 import com.github.retrooper.packetevents.util.Vector3d;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientInteractEntity;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientInteractEntity.InteractAction;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerDestroyEntities;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSpawnEntity;
 import java.util.HashSet;
 import java.util.Optional;
@@ -87,17 +88,19 @@ public class InteractPacketListener implements PacketListener {
       return;
     }
 
-    // TODO figure this out
-    /*
-    if (!FastCrystals.containsCrystal(crystal.getLocation())) {
+    int packetEntityId = FastCrystals.getLastEntityId() + 1;
+    final boolean shouldSendPacket = !FastCrystals.containsCrystal(crystal.getLocation())
+        && FastCrystals.getCrystal(packetEntityId) == null;
+
+    if (shouldSendPacket) {
       WrapperPlayServerSpawnEntity spawnCrystal = new WrapperPlayServerSpawnEntity(
-          FastCrystals.getLastEntityId() + 1, Optional.of(UUID.randomUUID()), EntityTypes.END_CRYSTAL,
+          FastCrystals.getLastEntityId() + 1, Optional.of(UUID.randomUUID()),
+          EntityTypes.END_CRYSTAL,
           new Vector3d(crystal.getX(), crystal.getY(), crystal.getZ()), crystal.getPitch(),
           crystal.getYaw(), crystal.getYaw(), 0, Optional.of(new Vector3d()));
 
       event.getUser().sendPacket(spawnCrystal);
     }
-     */
 
     new BukkitRunnable() {
       @Override
@@ -119,8 +122,14 @@ public class InteractPacketListener implements PacketListener {
 
           crystal.setShowingBottom(false);
 
-          if (player.getGameMode() != GameMode.CREATIVE
-              && player.getGameMode() != GameMode.SPECTATOR) {
+          if (shouldSendPacket && crystal.getEntityId() != packetEntityId) {
+            WrapperPlayServerDestroyEntities crystalDestroy = new WrapperPlayServerDestroyEntities(
+                crystal.getEntityId());
+
+            event.getUser().sendPacket(crystalDestroy);
+          }
+
+          if (player.getGameMode() != GameMode.CREATIVE) {
             item.setAmount(item.getAmount() - 1);
           }
         }

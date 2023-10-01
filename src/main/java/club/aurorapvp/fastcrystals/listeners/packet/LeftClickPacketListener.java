@@ -1,15 +1,15 @@
 package club.aurorapvp.fastcrystals.listeners.packet;
 
-import club.aurorapvp.fastcrystals.player.CrystalPlayer;
 import club.aurorapvp.fastcrystals.enums.AnimationType;
+import club.aurorapvp.fastcrystals.player.CrystalPlayer;
 import com.github.retrooper.packetevents.event.PacketListener;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType.Play.Client;
 import com.github.retrooper.packetevents.protocol.player.DiggingAction;
-import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientInteractEntity;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientPlayerDigging;
 
 public class LeftClickPacketListener implements PacketListener {
+
   @Override
   public void onPacketReceive(PacketReceiveEvent event) {
     if (event.getUser().getUUID() == null) {
