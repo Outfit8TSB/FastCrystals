@@ -49,15 +49,17 @@ public class AnimationPacketListener implements PacketListener {
     Location eyeLoc = player.getEyeLocation();
 
     CompletableFuture<RayTraceResult> future = CompletableFuture.supplyAsync(() -> player.getWorld()
-        .rayTraceEntities(eyeLoc, player.getLocation().getDirection(), 3.0, 0.0, entity -> {
-          if (entity.getType() != EntityType.PLAYER) {
-            return true;
-          }
+        .rayTraceEntities(eyeLoc, player.getLocation().getDirection(), 3.0, 0.0,
+            entity -> {
+              if (entity.getType() != EntityType.PLAYER) {
+                return true;
+              }
 
-          Player p = (Player) entity;
+              Player p = (Player) entity;
 
-          return !player.getUniqueId().equals(p.getUniqueId()) && player.canSee(p);
-        }), Bukkit.getScheduler().getMainThreadExecutor(FastCrystals.getInstance()));
+              return !player.getUniqueId().equals(p.getUniqueId())
+                  && p.getGameMode() != GameMode.SPECTATOR && player.canSee(p);
+            }), Bukkit.getScheduler().getMainThreadExecutor(FastCrystals.getInstance()));
 
     future.thenAcceptAsync(result -> {
       if (result == null) {
@@ -67,6 +69,10 @@ public class AnimationPacketListener implements PacketListener {
       Entity crystal = result.getHitEntity();
 
       if (crystal == null || crystal.getType() != EntityType.ENDER_CRYSTAL) {
+        return;
+      }
+
+      if (crystal.getTicksLived() == 0) {
         return;
       }
 
